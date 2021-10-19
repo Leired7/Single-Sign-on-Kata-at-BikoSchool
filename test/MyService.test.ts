@@ -1,14 +1,17 @@
 import MyService from '../src/myservice/MyService';
 import Request from '../src/sso/Request';
 import SSOToken from '../src/sso/SSOToken';
-import { SingleSignOnRegistryDummy } from './__mocks__/SingleSignOnRegistryDummy';
+import { SingleSignOnValidStub } from './__mocks__/SingleSignOnValidStub';
 
 describe('MyService', () => {
-  it('invalid sso token is rejected', () => {
-    const service = new MyService(new SingleSignOnRegistryDummy());
+  it('valid sso token is accept', () => {
+    const stubIsValid = new SingleSignOnValidStub();
+    const service = new MyService(stubIsValid);
 
-    const response = service.handleRequest(new Request('Foo', new SSOToken('token')));
+    const response = service.handleRequest(
+      new Request('Foo', new SSOToken('token'))
+    );
 
-    expect(response.getText()).not.toEqual('hello Foo!');
+    expect(response.getText()).toEqual('hello Foo!');
   });
 });
