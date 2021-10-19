@@ -1,12 +1,11 @@
 import MyService from '../src/myservice/MyService';
 import Request from '../src/sso/Request';
 import SSOToken from '../src/sso/SSOToken';
-import { SingleSignOnValidStub } from './__mocks__/SingleSignOnValidStub';
-import { SingleSignOnInvalidStub } from './__mocks__/SingleSignOnInvalidStub';
+import { SingleSignOnIsValidStub } from './__mocks__/SingleSignOnIsValidStub';
 
 describe('MyService', () => {
   it('valid sso token is accept', () => {
-    const stubIsValid = new SingleSignOnValidStub();
+    const stubIsValid = new SingleSignOnIsValidStub(true);
     const service = new MyService(stubIsValid);
 
     const response = service.handleRequest(
@@ -16,7 +15,7 @@ describe('MyService', () => {
   });
 
   it('invalid sso token is rejected', () => {
-    const stubIsValid = new SingleSignOnInvalidStub();
+    const stubIsValid = new SingleSignOnIsValidStub(false);
     const service = new MyService(stubIsValid);
 
     const response = service.handleRequest(
