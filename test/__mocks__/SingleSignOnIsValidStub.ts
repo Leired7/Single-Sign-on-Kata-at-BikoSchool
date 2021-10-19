@@ -2,17 +2,17 @@ import SingleSignOnRegistry from '../../src/sso/SingleSignOnRegistry';
 import SSOToken from '../../src/sso/SSOToken';
 
 export class SingleSignOnIsValidStub implements SingleSignOnRegistry {
-  constructor(public state: boolean) {
-    this.state = state;
-  }
+  tokenValidity: any;
 
   isValid(token: string): boolean {
-    if (this.state === true) {
+    if (this.tokenValidity) {
       return true;
-    } else if (this.state === false) {
-      return false;
     }
     return false;
+  }
+
+  setTokenEvaluation(state: boolean) {
+    this.tokenValidity = state;
   }
 
   registerNewSession(userName: string, password: string): SSOToken | undefined {
