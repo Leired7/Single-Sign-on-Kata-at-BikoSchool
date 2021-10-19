@@ -16,7 +16,6 @@ export default class MyService {
     if (this.registry.isValid(request.getSSOToken().getToken())) {
       return new Response(`hello ${request.getName()}!`);
     }
-
     return new Response('');
   }
 

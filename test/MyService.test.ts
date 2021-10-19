@@ -2,6 +2,7 @@ import MyService from '../src/myservice/MyService';
 import Request from '../src/sso/Request';
 import SSOToken from '../src/sso/SSOToken';
 import { SingleSignOnValidStub } from './__mocks__/SingleSignOnValidStub';
+import { SingleSignOnInvalidStub } from './__mocks__/SingleSignOnInvalidStub';
 
 describe('MyService', () => {
   it('valid sso token is accept', () => {
@@ -11,7 +12,16 @@ describe('MyService', () => {
     const response = service.handleRequest(
       new Request('Foo', new SSOToken('token'))
     );
-
     expect(response.getText()).toEqual('hello Foo!');
+  });
+
+  it('invalid sso token is rejected', () => {
+    const stubIsValid = new SingleSignOnInvalidStub();
+    const service = new MyService(stubIsValid);
+
+    const response = service.handleRequest(
+      new Request('Foo', new SSOToken('token'))
+    );
+    expect(response.getText()).toEqual('');
   });
 });
